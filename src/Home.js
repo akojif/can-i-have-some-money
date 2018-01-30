@@ -8,14 +8,14 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      money: 0
+      money: null
     }
   }
 
   getNameText() {
     const name = this.props.match.params.name;
     if (name) {
-      return `, ${name.charAt(0).toUpperCase() + name.slice(1)}`;
+      return `${name.charAt(0).toUpperCase() + name.slice(1)},`;
     }
     return DEFAULT_NAME;
   }
@@ -35,21 +35,29 @@ class Home extends Component {
       return (
         <div>
           <br />
-          <a href={this.getMoneyHref()} target="blank">Give us some money</a>
+          <a
+            className="button"
+            href={this.getMoneyHref()}
+            target="blank"
+          >
+            Give us some money
+          </a>
         </div>
       );
     }
-    return <p>Please enter a valid and ideally large amount of money</p>
+    return <p className="notmoney">Please enter a valid and ideally large amount of money</p>
   }
 
   renderForm() {
     return (
-      <div>
-        <input
-          type="text"
-          onChange={(e) => this.setState({ money: e.target.value})}
-          value={this.state.money}
-        />
+      <div className="text">
+          <input
+            className="input"
+            type="text"
+            onChange={(e) => this.setState({ money: e.target.value})}
+            value={this.state.money}
+            placeholder="enter some money"
+          />
         {this.renderLink()}
       </div>
     )
@@ -57,10 +65,11 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="site-wrapper">
-        <h1>
-          {`Can I have some money${this.getNameText()}?`}
-        </h1>
+      <div className="container">
+        <div className="words">
+          <h1>{this.getNameText()}</h1>
+          <p>can I have some money?</p>
+        </div>
         {this.renderForm()}
       </div>
     );
